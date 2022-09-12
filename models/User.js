@@ -10,12 +10,22 @@ const userSchema = mongoose.Schema({
         trim: true,
         unique: 1
     },
-    name: {
+    password: {
         type: String,
-        minlength: 50
+        minlength: 5
     },
     role: {
         type: Number,
         default: 0
+    },
+    token: {
+        type: String
+    },
+    tokenExp: {
+        type: Number
     }
 })
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = { User };
