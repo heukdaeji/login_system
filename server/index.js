@@ -6,6 +6,37 @@ const cookieParser = require('cookie-parser');
 const config = require('./config/key');
 const { auth } = require('./middleware/auth');
 const { User } = require('./models/User');
+const { Quiz } = require('./models/Quiz');
+
+//route start
+app.use(express.static('views'));
+
+app.set('view engine', 'ejs');
+
+app.get('/quizmake', (req, res) => {
+    res.render('quizmake');
+})
+
+app.get('/quiz', (req, res) => {
+    res.render('quiz');
+})
+
+app.get('/quizsolve', (req, res) => {
+    res.render('quizsolve');
+})
+
+app.get('/', (req, res) => {
+    res.render('home');
+})
+
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+//route end
 
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
@@ -18,12 +49,8 @@ mongoose.connect(config.mongoURI, {}).then(() => {
     console.log("Sussy mongo");
 }).catch(err => console.log(err))
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
-
 app.get('/api/hello', (req, res) => {
-    res.send('eeeeeeeeeeeee')
+    res.send('this us super sus')
 })
 
 app.post('/api/users/register', (req, res) => {
@@ -45,19 +72,22 @@ app.post('/api/users/login', (req, res) => {
         if (!user) {
             return res.json({
                 loginSuccess: false,
-                message: "not email"
-            })
+                message: "Cannot Find Account"
+            });
         }
         //if exist, check password is correct
         user.comparePassword(req.body.password, (err, isMatch) => {
-            if (!isMatch) return res.json({ loginSuccess: false, message: "password incorrect"});
-            //if correct, create token
+            if (!isMatch) {
+                return res.json({ loginSuccess: false, message: "Password Incorrect"});
+            }
+                //if correct, create token
             user.generateToken((err, user) => {
                 if (err) return res.status(400).send(err);
                 // saving token in where? -> cookie
+                // res.redirect('/');
                 res.cookie("x_auth", user.token)
                 .status(200)
-                .json({ loginSuccess: true, userId: user._id })
+                .json({ loginSuccess: true, userId: user._id, message: "Success" })
             })
         })
     })
@@ -89,4 +119,18 @@ app.get('/api/users/logout', auth, (req, res) => {
                 success: true
             })
         })
+})
+
+app.post('/api/quiz/create', (req, res) => {
+    const quiz = new Quiz(req.body);
+    console.log(quiz);
+
+    quiz.save((err) => {
+        if (err) return res.json({success: false, err});
+        return res.status(200).json({
+            quizInfo: req.body,
+            success: true,
+            
+        })
+    });
 })

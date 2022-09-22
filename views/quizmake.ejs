@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LOGIN EXPOSED</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <style media="screen">
+        *,*:before, *:after{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins',sans-serif;
+            letter-spacing: 0.5px;
+            outline: none;
+            border: none;
+        }
+
+        
+        body{
+            background-color: #080710;
+        }
+        .background{
+            width: 430px;
+            height: 520px;
+            transform: translate(-50%,-50%);
+            left: 50%;
+            top: 50%;
+            position: sticky;
+        }
+        .background .shape{
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            border-radius: 50%;
+        }
+        .shape:first-child{
+            background: linear-gradient(
+                #1845ad,
+                #23a2f6
+            );
+            left: -80px;
+            top: -80px;
+        }
+        .shape:last-child{
+            background: linear-gradient(
+                to right,
+                #ff512f,
+                #f09819
+            );
+            right: -30px;
+            bottom: -80px;
+        }
+
+        ::-webkit-scrollbar {
+            display: block;
+            width: 0px;
+        }
+
+        #top-bar a{
+            width: 252px;
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 9vh;
+            color: #36393F;
+            margin: 0px 0px 0px 20px;
+        }
+        #top-bar ul {
+            display: inline;
+            margin: 0;
+            padding: 0;
+        }
+        #top-bar #Auth ul li {
+            text-align: center;
+            width: 170px;
+            height: 100%;
+            font-family: 'Poppins',sans-serif;
+            background-color: #2E3338;
+            font-size: 20px;
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+            line-height: 8vh;
+            display: inline-block;
+        }
+        #top-bar #Auth ul li a {
+            font-size: 30px;
+            margin: 0 0;
+            color: #3BA55D;
+        }
+        #top-bar #Auth ul li:hover {
+            background-color: #202225;
+        }
+
+        #top-bar #Auth ul li:hover ul {
+            display: block;
+        }
+
+        #top-bar #Auth ul li ul {
+            width: 170px;
+            display: none;
+        }
+
+        #top-bar #Auth ul li ul li {
+            background: #202225;
+            display: block;
+        }
+
+        #top-bar #Auth ul li ul li:hover {
+            background: rgb(27, 136, 209);
+        }
+
+        #top-bar #Auth ul li ul li button {
+            display: block !important;
+            cursor: pointer;
+            background-color: transparent;
+            color: #1845ad;
+            font-size: 25px;
+            justify-content: center;
+            margin: auto;
+        }
+
+        #top-bar #loginButton {
+            text-align: center;
+            width: 170px;
+            height: 100%;
+            font-family: 'Poppins',sans-serif;
+            background-color: #24e424;
+            font-size: 20px;
+            border: 2px solid #40444B;
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        #top-bar {
+            height: 10vh;
+            width: 100vw;
+            background-color: rgba(255,255,255,0.13);
+            border: 2px solid #40444B;
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            position: sticky;
+            z-index: 100;
+            top: 0;
+        }
+
+        #homebtn {
+            background-color: #2E3338;
+            width: 170px;
+            font-size: 30px;
+            cursor: pointer;
+            color: yellow;
+
+        }
+        .description {
+            width: 50%;
+            height: 20vh;
+            position: relative;
+            background-color: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            text-align: center;
+            color: greenyellow;
+            word-break: break-all;
+            font-size: 25px;
+            resize: none;
+            margin: auto;
+            display: flex;
+        }
+        .quizNum {
+            font-size: 30px;
+            margin-top: 20px;
+            width: 100vw;
+            text-align: center;
+            color: #2E3338;
+        }
+        .quiz {
+            vertical-align: middle;
+            text-align:center;
+            height: 40%;
+        }
+        .answers {
+            position: relative;
+            text-align: center;
+        }
+        #quizs {
+            margin-top: -500px;
+        }
+        label {
+            padding: 6px;
+            border-radius: 50px;
+            display: inline-flex;
+            cursor: pointer;
+            transition: background .2s ease;
+            margin: 8px 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        label:hover, label:focus-within {
+            background: rgba(159, 159, 159, 0.1);
+        }
+        label input[type= "radio"] {
+            vertical-align: middle;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            background: none;
+            border: 0;
+            box-shadow: inset 0 0 0 1px #36393F;
+            box-shadow: inset 0 0 0 1.5px #36393F;
+            appearance: none;
+            padding: 0;
+            margin: 0;
+            transition: box-shadow 150ms cubic-bezier(0.95, 0.15, 0.5, 1.25);
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        label input[type= "radio"]:focus {
+                outline: none;
+        }
+        label input:checked {
+            box-shadow: inset 0 0 0 6px yellow;
+        }
+        label a {
+            vertical-align: middle;
+            display: inline-block;
+            line-height: 20px;
+            padding: 0 8px;
+        }
+        .ansNum {
+            color:rgb(27, 136, 209);
+        }
+        #Submit {
+            width: 200px;
+            height: 100px;
+            text-align: center;
+            font-family: 'Poppins',sans-serif;
+            background-color: rgb(114, 134, 172, 0.3);
+            font-size: 20px;
+            border: 2px solid #40444B;
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            justify-content: center;
+            margin: auto;
+        }
+        #submitbtns {
+            display: grid;
+            margin-bottom: 10px;
+        }
+        .invalid{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+    <body>
+        <div id="top-bar">
+            <a>Sussy Home</a>
+            <button id="homebtn">Home</button>
+            <div id="Auth">
+                <ul>
+                    <li>
+                        <a id="userName"></a>
+                        <ul>
+                            <li><button id="LogoutBtn">Logout</button></li>
+                            <li><button id="userInfoBtn">userInfo</button></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="UnAuth">
+                <button id="loginButton">Login</button>
+            </div>
+        </div>
+        <div class="background">
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div id="quizs">
+            <div id="quiz1" class="quiz">
+                <a class="quizNum">1.</a><br>
+                <textarea class="description" id="description1" spellcheck="false" placeholder="text a description of question"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <input class="ansInput" placeholder="Ans 1." id="qtext1-a1">
+                        <input type="radio" class="radio" name="q1ans" id="q1-a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <input class="ansInput" placeholder="Ans 2." id="qtext1-a2">
+                        <input type="radio" class="radio" name="q1ans" id="q1-a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <input class="ansInput" placeholder="Ans 3." id="qtext1-a3">
+                        <input type="radio" class="radio" name="q1ans" id="q1-a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <input class="ansInput" placeholder="Ans 4." id="qtext1-a4">
+                        <input type="radio" class="radio" name="q1ans" id="q1-a4">
+                    </label>
+                </div>
+            </div><br>
+            <div id="quiz2" class="quiz">
+                <a class="quizNum">2.</a><br>
+                <textarea class="description" id="description2" spellcheck="false" placeholder="text a description of question"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <input class="ansInput" placeholder="Ans 1." id="qtext2-a1">
+                        <input type="radio" class="radio" name="q2ans" id="q2-a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <input class="ansInput" placeholder="Ans 2." id="qtext2-a2">
+                        <input type="radio" class="radio" name="q2ans" id="q2-a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <input class="ansInput" placeholder="Ans 3." id="qtext2-a3">
+                        <input type="radio" class="radio" name="q2ans" id="q2-a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <input class="ansInput" placeholder="Ans 4." id="qtext2-a4">
+                        <input type="radio" class="radio" name="q2ans" id="q2-a4">
+                    </label>
+                </div>
+            </div><br>
+            <div id="quiz3" class="quiz">
+                <a class="quizNum">3.</a><br>
+                <textarea class="description" id="description3" spellcheck="false" placeholder="text a description of question"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <input class="ansInput" placeholder="Ans 1." id="qtext3-a1">
+                        <input type="radio" class="radio" name="q3ans" id="q3-a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <input class="ansInput" placeholder="Ans 2." id="qtext3-a2">
+                        <input type="radio" class="radio" name="q3ans" id="q3-a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <input class="ansInput" placeholder="Ans 3." id="qtext3-a3">
+                        <input type="radio" class="radio" name="q3ans" id="q3-a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <input class="ansInput" placeholder="Ans 4." id="qtext3-a4">
+                        <input type="radio" class="radio" name="q3ans" id="q3-a4">
+                    </label>
+                </div>
+            </div><br>
+            <div id="quiz4" class="quiz">
+                <a class="quizNum">4.</a><br>
+                <textarea class="description" id="description4" spellcheck="false" placeholder="text a description of question"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <input class="ansInput" placeholder="Ans 1." id="qtext4-a1">
+                        <input type="radio" class="radio" name="q4ans" id="q4-a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <input class="ansInput" placeholder="Ans 2." id="qtext4-a2">
+                        <input type="radio" class="radio" name="q4ans" id="q4-a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <input class="ansInput" placeholder="Ans 3." id="qtext4-a3">
+                        <input type="radio" class="radio" name="q4ans" id="q4-a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <input class="ansInput" placeholder="Ans 4." id="qtext4-a4">
+                        <input type="radio" class="radio" name="q4ans" id="q4-a4">
+                    </label>
+                </div>
+            </div><br>
+            <div id="quiz5" class="quiz">
+                <a class="quizNum">5.</a><br>
+                <textarea class="description" id="description5" spellcheck="false" placeholder="text a description of question"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <input class="ansInput" placeholder="Ans 1." id="qtext5-a1">
+                        <input type="radio" class="radio" name="q5ans" id="q5-a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <input class="ansInput" placeholder="Ans 2." id="qtext5-a2">
+                        <input type="radio" class="radio" name="q5ans" id="q5-a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <input class="ansInput" placeholder="Ans 3." id="qtext5-a3">
+                        <input type="radio" class="radio" name="q5ans" id="q5-a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <input class="ansInput" placeholder="Ans 4." id="qtext5-a4">
+                        <input type="radio" class="radio" name="q5ans" id="q5-a4">
+                    </label>
+                </div>
+            </div><br>
+            <div id="quiz6" class="quiz">
+                <a class="quizNum">6.</a><br>
+                <textarea class="description" id="description6" spellcheck="false" placeholder="text a description of question"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <input class="ansInput" placeholder="Ans 1." id="qtext6-a1">
+                        <input type="radio" class="radio" name="q6ans" id="q6-a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <input class="ansInput" placeholder="Ans 2." id="qtext6-a2">
+                        <input type="radio" class="radio" name="q6ans" id="q6-a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <input class="ansInput" placeholder="Ans 3." id="qtext6-a3">
+                        <input type="radio" class="radio" name="q6ans" id="q6-a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <input class="ansInput" placeholder="Ans 4." id="qtext6-a4">
+                        <input type="radio" class="radio" name="q6ans" id="q6-a4">
+                    </label>
+                </div>
+            </div><br>
+            <div id="quiz7" class="quiz">
+                <a class="quizNum">7.</a><br>
+                <textarea class="description" id="description7" spellcheck="false" placeholder="text a description of question"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <input class="ansInput" placeholder="Ans 1." id="qtext7-a1">
+                        <input type="radio" class="radio" name="q7ans" id="q7-a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <input class="ansInput" placeholder="Ans 2." id="qtext7-a2">
+                        <input type="radio" class="radio" name="q7ans" id="q7-a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <input class="ansInput" placeholder="Ans 3." id="qtext7-a3">
+                        <input type="radio" class="radio" name="q7ans" id="q7-a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <input class="ansInput" placeholder="Ans 4." id="qtext7-a4">
+                        <input type="radio" class="radio" name="q7ans" id="q7-a4">
+                    </label>
+                </div>
+            </div><br>
+            <div id="quiz8" class="quiz">
+                <a class="quizNum">8.</a><br>
+                <textarea class="description" id="description8" spellcheck="false" placeholder="text a description of question"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <input class="ansInput" placeholder="Ans 1." id="qtext8-a1">
+                        <input type="radio" class="radio" name="q8ans" id="q8-a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <input class="ansInput" placeholder="Ans 2." id="qtext8-a2">
+                        <input type="radio" class="radio" name="q8ans" id="q8-a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <input class="ansInput" placeholder="Ans 3." id="qtext8-a3">
+                        <input type="radio" class="radio" name="q8ans" id="q8-a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <input class="ansInput" placeholder="Ans 4." id="qtext8-a4">
+                        <input type="radio" class="radio" name="q8ans" id="q8-a4">
+                    </label>
+                </div>
+            </div><br>
+            <div id="quiz9" class="quiz">
+                <a class="quizNum">9.</a><br>
+                <textarea class="description" id="description9" spellcheck="false" placeholder="text a description of question"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <input class="ansInput" placeholder="Ans 1." id="qtext9-a1">
+                        <input type="radio" class="radio" name="q9ans" id="q9-a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <input class="ansInput" placeholder="Ans 2." id="qtext9-a2">
+                        <input type="radio" class="radio" name="q9ans" id="q9-a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <input class="ansInput" placeholder="Ans 3." id="qtext9-a3">
+                        <input type="radio" class="radio" name="q9ans" id="q9-a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <input class="ansInput" placeholder="Ans 4." id="qtext9-a4">
+                        <input type="radio" class="radio" name="q9ans" id="q9-a4">
+                    </label>
+                </div>
+            </div><br>
+            <div id="quiz10" class="quiz">
+                <a class="quizNum">10.</a><br>
+                <textarea class="description" id="description10" spellcheck="false" placeholder="text a description of question"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <input class="ansInput" placeholder="Ans 1." id="qtext10-a1">
+                        <input type="radio" class="radio" name="q10ans" id="q10-a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <input class="ansInput" placeholder="Ans 2." id="qtext10-a2">
+                        <input type="radio" class="radio" name="q10ans" id="q10-a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <input class="ansInput" placeholder="Ans 3." id="qtext10-a3">
+                        <input type="radio" class="radio" name="q10ans" id="q10-a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <input class="ansInput" placeholder="Ans 4." id="qtext10-a4">
+                        <input type="radio" class="radio" name="q10ans" id="q10-a4">
+                    </label>
+                </div>
+            </div><br>
+            <div id="submitbtns"><button id="Submit">Submit</button></div>
+        </div>
+        <script type="text/javascript" src="quizmake.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </body>
+</html>
