@@ -134,3 +134,13 @@ app.post('/api/quiz/create', (req, res) => {
         })
     });
 })
+
+app.get('/api/quiz/quizlist', (req, res) => {
+    Quiz.count(function (err, count) {
+        if (err) console.log(err);
+        else res.json({
+            count: count,
+            success: true
+        })
+    })
+})

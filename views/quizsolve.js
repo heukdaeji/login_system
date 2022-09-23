@@ -18,6 +18,8 @@ window.onload = async function() {
             window.location.href = '/login';
         })
     }
+    const quizInfo = await (axios.get('./api/quiz/quizlist'));
+    console.log(quizInfo.data.count);
 }
 
 document.getElementById('homebtn').addEventListener('click', () => {

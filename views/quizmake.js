@@ -52,15 +52,21 @@ $('#Submit').addEventListener('click', async () => {
     }
     if(fail)alert('Please check all the fields again!');
     const userInfo = await (axios.get('./api/users/auth'));
+    let date = new Date();
+    let dates = Intl.DateTimeFormat("en", { dateStyle: 'medium', timeStyle: 'medium' }).format(date)
+    console.log(dates);
     axios({
         method: 'post',
         url: 'http://localhost:5000/api/quiz/create',
         data: {
+            quizName: $('#quizName').value,
             quiz: quiz,
             name: userInfo.data.name,
+            time: dates
             
         }
     }).then(response => {
+        console.log(response);
         alert('Successfully Created!');
         window.location.href = '/quiz';
     })

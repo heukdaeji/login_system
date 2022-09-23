@@ -202,7 +202,7 @@
             background: rgba(159, 159, 159, 0.1);
         }
         label input[type= "radio"] {
-            vertical-align: middle;
+            display: table-cell;
             width: 20px;
             height: 20px;
             border-radius: 10px;
@@ -216,6 +216,7 @@
             transition: box-shadow 150ms cubic-bezier(0.95, 0.15, 0.5, 1.25);
             margin-left: 5px;
             cursor: pointer;
+            margin-top: 0.5rem;
         }
         label input[type= "radio"]:focus {
                 outline: none;
@@ -254,6 +255,33 @@
         .invalid{
             border: 1px solid red;
         }
+        .ansInput {
+            position: relative;
+            background-color: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            text-align: center;
+            color: greenyellow;
+            word-break: break-all;
+            font-size: 25px;
+            resize: none;
+            margin: auto;
+            display: flex;
+            border-radius: 5px;
+        }
+        #quizName {
+            width: 70%;
+            position: relative;
+            background-color: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            text-align: center;
+            color: greenyellow;
+            word-break: break-all;
+            font-size: 25px;
+            resize: none;
+            margin: auto;
+            display: flex;
+            border-radius: 5px;
+        }
     </style>
 </head>
     <body>
@@ -280,6 +308,7 @@
             <div class="shape"></div>
         </div>
         <div id="quizs">
+            <input id="quizName" placeholder="put a name..."><br>
             <div id="quiz1" class="quiz">
                 <a class="quizNum">1.</a><br>
                 <textarea class="description" id="description1" spellcheck="false" placeholder="text a description of question"></textarea>
