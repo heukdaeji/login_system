@@ -36,6 +36,15 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
     res.render('register');
 });
+
+
+app.get('/quizs/:quizid', (req, res) => {
+    res.render('quizSolving');
+})
+
+app.get('/quizs/:quizid/:qNum', (req, res) => {
+    res.json(req.params);
+})
 //route end
 
 //application/x-www-form-urlencoded
@@ -136,11 +145,17 @@ app.post('/api/quiz/create', (req, res) => {
 })
 
 app.get('/api/quiz/quizlist', (req, res) => {
-    Quiz.count(function (err, count) {
-        if (err) console.log(err);
-        else res.json({
-            count: count,
-            success: true
-        })
+    // Quiz.count(function (err, count) {
+    //     if (err) console.log(err);
+    //     else res.json({
+    //         count: count,
+    //         success: true
+    //     })
+    // })
+    Quiz.find({}, (err, result) => {
+        if (err) return err;
+        res.json({
+            quizs: result
+        });
     })
 })

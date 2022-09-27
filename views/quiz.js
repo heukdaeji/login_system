@@ -13,10 +13,8 @@ window.onload = async function() {
         })
         document.getElementById('userName').innerHTML = userInfo.data.name;
     } else {
-        document.getElementById('Auth').style.display = 'none';
-        document.getElementById("loginButton").addEventListener('click', () => {
-            window.location.href = '/login';
-        })
+        alert('Non-Login user is not allowed in this Page!')
+        window.location.href = '/login';
     }
 }
 

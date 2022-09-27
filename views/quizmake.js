@@ -18,10 +18,8 @@ window.onload = async function() {
         });
         $('#userName').innerHTML = userInfo.data.name;
     } else {
-        $('#Auth').style.display = 'none';
-        $('#loginButton').addEventListener('click', () => {
-            window.location.href = '/login';
-        });
+        alert('Non-Login user is not allowed in this Page!')
+        window.location.href = '/login';
     }
 }
 $('#homebtn').addEventListener('click', () => {
@@ -50,10 +48,13 @@ $('#Submit').addEventListener('click', async () => {
             answerTexts: answerTexts.map((v, i) => {return {number: i+ 1, value: v.value}})
         })
     }
-    if(fail)alert('Please check all the fields again!');
+    if(fail) {
+        alert('Please check all the fields again!');
+        return
+    }
     const userInfo = await (axios.get('./api/users/auth'));
     let date = new Date();
-    let dates = Intl.DateTimeFormat("en", { dateStyle: 'medium', timeStyle: 'medium' }).format(date)
+    let dates = `${0 <= date.getFullYear() && date.getFullYear() < 10 ? "0" + date.getFullYear() : date.getFullYear()}, ${0 <= (date.getMonth()+1) && (date.getMonth()+1) < 10 ? ("0" + (date.getMonth()+1)) : (date.getMonth()+1)}, ${0 <= date.getDate() && date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}, ${0 <= date.getHours() && date.getHours() < 10 ? "0" + date.getHours() : date.getHours()}, ${0 <= date.getMinutes() && date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()}, ${0 <= date.getSeconds() && date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()}`;
     console.log(dates);
     axios({
         method: 'post',
