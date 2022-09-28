@@ -3,12 +3,12 @@ const $ = (query) => document.querySelector(query);
 let quizCount = 10; //default value
 
 window.onload = async function() {
-    const userInfo = await (axios.get('./api/users/auth'));
+    const userInfo = await (axios.get('../api/users/auth'));
     console.log(userInfo.data);
     if (userInfo.data.isAuth) {
         $('#UnAuth').style.display = 'none';
         $('#LogoutBtn').addEventListener('click', async () => {
-            const logout = await axios.get(`./api/users/logout`);
+            const logout = await axios.get(`../api/users/logout`);
             if (logout.data.success) {
                 console.log("Successfully logouted!");
                 window.location.href = '/login';
@@ -52,7 +52,7 @@ $('#Submit').addEventListener('click', async () => {
         alert('Please check all the fields again!');
         return
     }
-    const userInfo = await (axios.get('./api/users/auth'));
+    const userInfo = await (axios.get('../api/users/auth'));
     let date = new Date();
     let dates = `${0 <= date.getFullYear() && date.getFullYear() < 10 ? "0" + date.getFullYear() : date.getFullYear()}, ${0 <= (date.getMonth()+1) && (date.getMonth()+1) < 10 ? ("0" + (date.getMonth()+1)) : (date.getMonth()+1)}, ${0 <= date.getDate() && date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}, ${0 <= date.getHours() && date.getHours() < 10 ? "0" + date.getHours() : date.getHours()}, ${0 <= date.getMinutes() && date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()}, ${0 <= date.getSeconds() && date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()}`;
     console.log(dates);

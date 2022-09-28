@@ -1,11 +1,11 @@
 const $ = (query) => document.querySelector(query);
 
 window.onload = async function() {
-    const userInfo = await (axios.get('./api/users/auth'));
+    const userInfo = await (axios.get('../api/users/auth'));
     if (userInfo.data.isAuth) {
         $('#UnAuth').style.display = 'none';
         $("#LogoutBtn").addEventListener('click', async function() {
-            const logout = await axios.get(`./api/users/logout`);
+            const logout = await axios.get(`../api/users/logout`);
             if (logout.data.success) {
                 console.log("Successfully logouted!");
                 window.location.href = '/login';
@@ -18,7 +18,7 @@ window.onload = async function() {
         alert('Non-Login user is not allowed in this Page!')
         window.location.href = '/login';
     }
-    const quizInfo = await (axios.get('./api/quiz/quizlist'));
+    const quizInfo = await (axios.get('../api/quiz/quizlist'));
     const quizs = quizInfo.data.quizs;
     console.log(quizs);
     for (let i = 0; i < (quizs.length-1)/2+1; i++) {
@@ -55,7 +55,7 @@ window.onload = async function() {
         `;
         $(`#quizPage${Math.floor(i/2)+1}`).appendChild(quizDiv);
         $(`#solveBtn${i+1}`).addEventListener('click', () => {
-            window.location.href = `/quizs/${quizs[i]._id}`;
+            window.location.href = `/quiz/id/${quizs[i]._id}`;
         })
 
         const CurrentDate = new Date();

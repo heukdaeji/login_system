@@ -8,50 +8,67 @@ const { auth } = require('./middleware/auth');
 const { User } = require('./models/User');
 const { Quiz } = require('./models/Quiz');
 
-//route start
-app.use(express.static('views'));
-
-app.set('view engine', 'ejs');
-
-app.get('/quizmake', (req, res) => {
-    res.render('quizmake');
-})
-
-app.get('/quiz', (req, res) => {
-    res.render('quiz');
-})
-
-app.get('/quizsolve', (req, res) => {
-    res.render('quizsolve');
-})
-
-app.get('/', (req, res) => {
-    res.render('home');
-})
-
-app.get('/login', (req, res) => {
-    res.render('login');
-});
-
-app.get('/register', (req, res) => {
-    res.render('register');
-});
-
-
-app.get('/quizs/:quizid', (req, res) => {
-    res.render('quizSolving');
-})
-
-app.get('/quizs/:quizid/:qNum', (req, res) => {
-    res.json(req.params);
-})
-//route end
-
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 //application/json
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+//route start
+app.use(express.static('views'));
+app.set('view engine', 'ejs');
+
+let quizRouter = express.Router({mergeParams: true});
+let quizSolveRouter = express.Router({mergeParams: true});
+quizRouter.use('/id', quizSolveRouter);
+
+// main
+app.route('/')
+    .get(function (req, res) {
+        res.render('home');
+    })
+
+app.route('/login')
+    .get(function (req, res) {
+        res.render('login');
+    })
+
+app.route('/register')
+    .get(function (req, res) {
+        res.render('register');
+    })
+
+//quiz
+quizRouter.route('/')
+    .get(function (req, res) {
+        res.render('quiz');
+    });
+
+quizRouter.route('/make')
+    .get(function (req, res) {
+        res.render('quizmake');
+    });
+
+quizRouter.route('/solve')
+    .get(function (req, res) {
+        res.render('quizsolve');
+    });
+
+//quizsolve
+
+quizSolveRouter.route('/:quizid')
+    .get(function(req, res, next) {
+        res.cookie("quiz_id", req.params.quizid);
+        next()
+    })
+    .get(function (req, res) {
+        console.log(req.params);
+        res.render('quizSolving')
+    })
+
+app.use('/quiz', quizRouter);
+
+//route end
 
 const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI, {}).then(() => {
@@ -145,17 +162,18 @@ app.post('/api/quiz/create', (req, res) => {
 })
 
 app.get('/api/quiz/quizlist', (req, res) => {
-    // Quiz.count(function (err, count) {
-    //     if (err) console.log(err);
-    //     else res.json({
-    //         count: count,
-    //         success: true
-    //     })
-    // })
     Quiz.find({}, (err, result) => {
         if (err) return err;
         res.json({
             quizs: result
         });
+    })
+})
+
+app.post('/api/quiz/findtoid', (req, res) => {
+    Quiz.findOne({_id: req.body.id}, function (err, quiz) {
+        res.status(200).json({
+            quizInfo: quiz
+        })
     })
 })

@@ -23,9 +23,9 @@ document.getElementById('homebtn').addEventListener('click', () => {
 })
 
 document.getElementById('MakeBtn').addEventListener('click', () => {
-    window.location.href = '/quizmake';
+    window.location.href = '/quiz/make';
 })
 
 document.getElementById('SolveBtn').addEventListener('click', () => {
-    window.location.href = '/quizsolve';
+    window.location.href = '/quiz/solve';
 })
