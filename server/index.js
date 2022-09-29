@@ -150,7 +150,6 @@ app.get('/api/users/logout', auth, (req, res) => {
 app.post('/api/quiz/create', (req, res) => {
     const quiz = new Quiz(req.body);
     console.log(quiz);
-
     quiz.save((err) => {
         if (err) return res.json({success: false, err});
         return res.status(200).json({

@@ -163,7 +163,7 @@
             background-color: rgba(255,255,255,0.1);
             backdrop-filter: blur(5px);
             text-align: center;
-            color: greenyellow;
+            color: rgb(77, 151, 99);
             word-break: break-all;
             font-size: 25px;
             resize: none;
@@ -194,9 +194,12 @@
             border-radius: 50px;
             display: inline-flex;
             cursor: pointer;
+            width: 25vw;
             transition: background .2s ease;
-            margin: 8px 0;
+            background-color: rgba(255,255,255,0.1);
+            margin: 16px 8px;
             -webkit-tap-highlight-color: transparent;
+            text-align: center;
         }
         label:hover, label:focus-within {
             background: rgba(159, 159, 159, 0.1);
@@ -212,7 +215,7 @@
             box-shadow: inset 0 0 0 1.5px #36393F;
             appearance: none;
             padding: 0;
-            margin: 0;
+            margin: 7px 0;
             transition: box-shadow 150ms cubic-bezier(0.95, 0.15, 0.5, 1.25);
             margin-left: 5px;
             cursor: pointer;
@@ -228,7 +231,6 @@
             vertical-align: middle;
             display: inline-block;
             line-height: 20px;
-            padding: 0 8px;
         }
         .ansNum {
             color:rgb(27, 136, 209);
@@ -252,35 +254,29 @@
             display: grid;
             margin-bottom: 10px;
         }
-        .invalid{
-            border: 1px solid red;
-        }
         .ansInput {
             position: relative;
-            background-color: rgba(255,255,255,0.1);
             backdrop-filter: blur(5px);
-            text-align: center;
-            color: greenyellow;
-            word-break: break-all;
+            color: rgb(180, 149, 102);
             font-size: 25px;
             resize: none;
             margin: auto;
-            display: flex;
             border-radius: 5px;
+            width: 10vw;
         }
-        #quizName {
-            width: 70%;
+        .quizName {
+            width: 100%;
             position: relative;
-            background-color: rgba(255,255,255,0.1);
             backdrop-filter: blur(5px);
             text-align: center;
-            color: greenyellow;
+            color: rgb(100, 28, 168);
             word-break: break-all;
-            font-size: 25px;
+            font-size: 50px;
             resize: none;
             margin: auto;
             display: flex;
             border-radius: 5px;
+            justify-content: center;
         }
     </style>
 </head>
@@ -306,6 +302,41 @@
         <div class="background">
             <div class="shape"></div>
             <div class="shape"></div>
+        </div>
+        <div id="quizs">
+            <a class="quizName"></a><br>
+            <div id="quiz1" class="quiz">
+                <a class="quizNum">1.</a><br>
+                <textarea class="description" id="description1" spellcheck="false"></textarea>
+                <br>
+                <div class="answers">
+                    <label>
+                        <a class="ansNum">1.</a>
+                        <a class="ansInput" placeholder="Ans 1." id="text-a1"></a>
+                        <input type="radio" class="radio" name="q1ans" id="a1">
+                    </label>
+                    <label>
+                        <a class="ansNum">2.</a>
+                        <a class="ansInput" placeholder="Ans 2." id="text-a2"></a>
+                        <input type="radio" class="radio" name="q1ans" id="a2">
+                    </label>
+                    <br>
+                    <label>
+                        <a class="ansNum">3.</a>
+                        <a class="ansInput" placeholder="Ans 3." id="text-a3"></a>
+                        <input type="radio" class="radio" name="q1ans" id="a3">
+                    </label>
+                    <label>
+                        <a class="ansNum">4.</a>
+                        <a class="ansInput" placeholder="Ans 4." id="text-a4"></a>
+                        <input type="radio" class="radio" name="q1ans" id="a4">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="bottom-bar">
+            <button id="last-quiz">z</button>
+            <button id="next-quiz">b</button>
         </div>
         <script src="../../quizSolving.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

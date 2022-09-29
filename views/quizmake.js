@@ -29,8 +29,9 @@ $('#homebtn').addEventListener('click', () => {
 $('#Submit').addEventListener('click', async () => {
     if (!confirm('Submit Quiz?')) return;
     let quiz = [];
+    let ans = [];
     let fail = false;
-    for(let i=1;i<=10;i++){
+    for(let i=1;i<=quizCount;i++){
         const description = $(`#description${i}`);
         const answerTexts = [];
         for(let j=1;j<=4;j++){
@@ -44,10 +45,11 @@ $('#Submit').addEventListener('click', async () => {
         quiz.push({
             number:i, 
             description: description.value,
-            answer: answers.findIndex(v => v.checked) + 1,
             answerTexts: answerTexts.map((v, i) => {return {number: i+ 1, value: v.value}})
         })
+        ans.push(answers.findIndex(v => v.checked) + 1)
     }
+    console.log(ans);
     if(fail) {
         alert('Please check all the fields again!');
         return
@@ -64,7 +66,6 @@ $('#Submit').addEventListener('click', async () => {
             quiz: quiz,
             name: userInfo.data.name,
             time: dates
-            
         }
     }).then(response => {
         console.log(response);
