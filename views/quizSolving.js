@@ -4,6 +4,9 @@ window.onload = async function() {
     const userInfo = await (axios.get('../../api/users/auth'));
     if (userInfo.data.isAuth) {
         $('#UnAuth').style.display = 'none';
+        $('#userInfoBtn').addEventListener('click', () => {
+            window.location.href = 'userinfo';
+        })
         $("#LogoutBtn").addEventListener('click', async function() {
             const logout = await axios.get(`../../api/users/logout`);
             if (logout.data.success) {
@@ -66,5 +69,3 @@ window.onload = async function() {
         console.log(ans);
     })
 }
-
-

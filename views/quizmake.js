@@ -7,13 +7,16 @@ window.onload = async function() {
     console.log(userInfo.data);
     if (userInfo.data.isAuth) {
         $('#UnAuth').style.display = 'none';
+        $('#userInfoBtn').addEventListener('click', () => {
+            window.location.href = 'userinfo';
+        })
         $('#LogoutBtn').addEventListener('click', async () => {
             const logout = await axios.get(`../api/users/logout`);
             if (logout.data.success) {
-                console.log("Successfully logouted!");
+                alert("Successfully logouted!");
                 window.location.href = '/login';
             } else {
-                console.log("error occured");
+                alert("error occured");
             }
         });
         $('#userName').innerHTML = userInfo.data.name;
@@ -25,6 +28,7 @@ window.onload = async function() {
 $('#homebtn').addEventListener('click', () => {
     window.location.href = '/';
 });
+
 
 $('#Submit').addEventListener('click', async () => {
     if (!confirm('Submit Quiz?')) return;
@@ -47,9 +51,10 @@ $('#Submit').addEventListener('click', async () => {
             description: description.value,
             answerTexts: answerTexts.map((v, i) => {return {number: i+ 1, value: v.value}})
         })
-        ans.push(answers.findIndex(v => v.checked) + 1)
+        ans.push({
+            answer: answers.findIndex(v => v.checked) + 1
+        })
     }
-    console.log(ans);
     if(fail) {
         alert('Please check all the fields again!');
         return
@@ -57,21 +62,32 @@ $('#Submit').addEventListener('click', async () => {
     const userInfo = await (axios.get('../api/users/auth'));
     let date = new Date();
     let dates = `${0 <= date.getFullYear() && date.getFullYear() < 10 ? "0" + date.getFullYear() : date.getFullYear()}, ${0 <= (date.getMonth()+1) && (date.getMonth()+1) < 10 ? ("0" + (date.getMonth()+1)) : (date.getMonth()+1)}, ${0 <= date.getDate() && date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}, ${0 <= date.getHours() && date.getHours() < 10 ? "0" + date.getHours() : date.getHours()}, ${0 <= date.getMinutes() && date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()}, ${0 <= date.getSeconds() && date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()}`;
-    console.log(dates);
     axios({
         method: 'post',
         url: 'http://localhost:5000/api/quiz/create',
         data: {
-            quizName: $('#quizName').value,
-            quiz: quiz,
-            name: userInfo.data.name,
-            time: dates
+            quiz: {
+                quizName: $('#quizName').value,
+                quiz: quiz,
+                name: userInfo.data.name,
+                time: dates
+            }
         }
-    }).then(response => {
-        console.log(response);
-        alert('Successfully Created!');
-        window.location.href = '/quiz';
-    })
+    }).then(response => {})
+    setTimeout(function(){ 
+        const quizid = document.cookie.split('quizid=')[1].split(';')[0];
+        axios({
+            method: 'post',
+            url: 'http://localhost:5000/api/quiz/sendans',
+            data: {
+                ans: ans,
+                id: quizid
+            }
+        }).then(response => {
+            alert('Successfully Created!');
+            window.location.href = '/quiz';
+        })
+    }, 2000);
 });
 
 function quizValidate(description, answerTexts, answers){

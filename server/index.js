@@ -7,6 +7,7 @@ const config = require('./config/key');
 const { auth } = require('./middleware/auth');
 const { User } = require('./models/User');
 const { Quiz } = require('./models/Quiz');
+const { Ans } = require('./models/Ans');
 
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
@@ -37,6 +38,12 @@ app.route('/register')
     .get(function (req, res) {
         res.render('register');
     })
+
+app.route('/userinfo')
+    .get(function (req, res) {
+        res.render('userinfo');
+    })
+
 
 //quiz
 quizRouter.route('/')
@@ -148,16 +155,32 @@ app.get('/api/users/logout', auth, (req, res) => {
 })
 
 app.post('/api/quiz/create', (req, res) => {
-    const quiz = new Quiz(req.body);
+    const quiz = new Quiz(req.body.quiz);
     console.log(quiz);
     quiz.save((err) => {
         if (err) return res.json({success: false, err});
+        const id = String(quiz._id);
+        console.log(id);
+        res.cookie("quizid", id);
         return res.status(200).json({
             quizInfo: req.body,
             success: true,
             
         })
     });
+})
+
+app.post('/api/quiz/sendans', (req, res) => {
+    const ans = new Ans(req.body);
+    console.log(ans);
+    ans.save((err) => {
+        if (err) return res.json({success: false, err});
+        return res.status(200).json({
+            ansInfo: req.body,
+            success: true,
+            
+        })
+    })
 })
 
 app.get('/api/quiz/quizlist', (req, res) => {

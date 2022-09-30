@@ -2,6 +2,9 @@ window.onload = async function() {
     const userInfo = await (axios.get('./api/users/auth'));
     if (userInfo.data.isAuth) {
         document.getElementById('UnAuth').style.display = 'none';
+        document.getElementById("userInfoBtn").addEventListener('click', () => {
+            window.location.href = 'userinfo';
+        })
         document.getElementById("LogoutBtn").addEventListener('click', async function() {
             const logout = await axios.get(`./api/users/logout`);
             if (logout.data.success) {
